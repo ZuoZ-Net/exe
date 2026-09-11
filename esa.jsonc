@@ -4,9 +4,14 @@
 
   // 边缘函数唯一入口：ESA Pages 不做“文件名即路由”，
   // 未命中静态资源的请求全部交给这个文件处理。
-  "entry": "./esa/index.js"
+  "entry": "./esa/index.js",
 
-  // 本项目是纯函数代理，没有静态站点产物，故不配置 assets。
+  // 本仓库是纯边缘函数代理，没有 package.json，也没有前端构建产物。
+  // 这两项必须显式置空，否则会回落到控制台默认的 npm install / npm run build，
+  // 在没有 package.json 的情况下会直接 ENOENT 构建失败。
+  "installCommand": "",
+  "buildCommand": ""
+
   // 若以后要托管静态文件，再加：
   // "assets": { "directory": "./dist" }
 }
