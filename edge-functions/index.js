@@ -1,5 +1,4 @@
 const TARGET_URL = 'http://77.42.112.199/test-100M.bin';
-const BACKEND_HOST = 'ts.gcncsm.cn';
 
 export async function onRequest(context) {
   const request = context.request;
@@ -15,7 +14,6 @@ export async function onRequest(context) {
 
   const headers = new Headers();
 
-  // 支持 Range 断点下载
   for (const key of [
     'range',
     'if-range',
@@ -29,9 +27,6 @@ export async function onRequest(context) {
     }
   }
 
-  // 后端按 ts.gcncsm.cn 这个虚拟主机处理
-  headers.set('host', BACKEND_HOST);
-
   const upstream = await fetch(TARGET_URL, {
     method: request.method,
     headers,
@@ -40,7 +35,6 @@ export async function onRequest(context) {
 
   const responseHeaders = new Headers(upstream.headers);
 
-  // 测速时不使用缓存
   responseHeaders.set('cache-control', 'no-store');
   responseHeaders.delete('server');
   responseHeaders.delete('x-powered-by');
