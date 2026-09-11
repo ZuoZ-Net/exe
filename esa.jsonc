@@ -1,0 +1,12 @@
+{
+  // 阿里云 ESA Pages 配置（与 EdgeOne 的 edge-functions/ 互不影响）
+  "name": "exe11111",
+
+  // 边缘函数唯一入口：ESA Pages 不做“文件名即路由”，
+  // 未命中静态资源的请求全部交给这个文件处理。
+  "entry": "./esa/index.js"
+
+  // 本项目是纯函数代理，没有静态站点产物，故不配置 assets。
+  // 若以后要托管静态文件，再加：
+  // "assets": { "directory": "./dist" }
+}
