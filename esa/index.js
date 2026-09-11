@@ -11,8 +11,10 @@
 // 入口路径在 ESA 控制台「基本信息 → 构建信息 → 函数文件路径」中配置为 esa/index.js。
 // （仓库根目录的 esa.jsonc 实测不被 Pages 构建读取，仅供 ESA CLI 使用。）
 
-const TARGET_URL = 'http://77.42.112.199/test-100M.bin';
-
+// ESA 边缘函数禁止 fetch() 直连 IP（Direct access to IP addresses is not allowed），
+// 因此回源必须走域名。hq.581878.xyz 与原来的 77.42.112.199 是同一份文件
+// （ETag 6aa3c950-6400000、Content-Length 104857600 均一致），经 Cloudflare 代理。
+const TARGET_URL = 'https://hq.581878.xyz/test-100M.bin';
 export default {
   async fetch(request, env, ctx) {
     const currentUrl = new URL(request.url);
